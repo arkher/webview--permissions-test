@@ -99,6 +99,7 @@ const UploadDocument = (props) => {
         ) : null}
         <UploadFile />
         <InputFile
+          id="dragndrop"
           type="file"
           accept=".pdf"
           ref={hiddenFileInput}
@@ -124,7 +125,6 @@ const UploadDocument = (props) => {
 
   return (
     <UploadDocumentArea
-      id="dragndrop"
       onDragOver={handleDragOver}
       onDragEnter={handleDragEnter}
       onDragLeave={handleDragLeave}
