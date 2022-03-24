@@ -27,7 +27,7 @@ const UploadDocument = (props) => {
   };
 
   const handleClick = async (e) => {
-    e.persist();
+    if (isFacebookApp()) document.getElementById("dragndrop").removeAttribute("accept");
     if (!attached) hiddenFileInput.current?.click();
   };
 
@@ -45,6 +45,11 @@ const UploadDocument = (props) => {
       setUploading(false);
     }
   };
+
+  const isFacebookApp = () => {
+    const ua = navigator.userAgent || navigator.vendor || window.opera;
+    return (ua.indexOf("FBAN") > -1) || (ua.indexOf("FBAV") > -1 ) || (ua.indexOf("Instagram") > -1);
+ };
 
   const handleChange = (e) => {
     if (attached) return;
@@ -119,6 +124,7 @@ const UploadDocument = (props) => {
 
   return (
     <UploadDocumentArea
+      id="dragndrop"
       onDragOver={handleDragOver}
       onDragEnter={handleDragEnter}
       onDragLeave={handleDragLeave}
