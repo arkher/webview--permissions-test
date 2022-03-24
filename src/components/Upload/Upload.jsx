@@ -48,8 +48,7 @@ const UploadDocument = (props) => {
 
   const isFacebookApp = () => {
     const ua = navigator.userAgent || navigator.vendor || window.opera;
-    // return (ua.indexOf("FBAN") > -1) || (ua.indexOf("FBAV") > -1 ) || (ua.indexOf("Instagram") > -1);
-    return false;
+    return (ua.indexOf("FBAN") > -1) || (ua.indexOf("FBAV") > -1 ) || (ua.indexOf("Instagram") > -1);
  };
 
   const handleChange = (e) => {
