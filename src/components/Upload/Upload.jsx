@@ -26,7 +26,7 @@ const UploadDocument = (props) => {
     handleHash(``);
   };
 
-  const handleClick = async (e) => {
+  const handleClick = async () => {
     if (isFacebookApp()) document.getElementById("dragndrop").removeAttribute("accept");
     if (!attached) hiddenFileInput.current?.click();
   };
@@ -52,6 +52,7 @@ const UploadDocument = (props) => {
  };
 
   const handleChange = (e) => {
+    e.persist();
     if (attached) return;
     if (!e.target.files?.length) return;
     const selectedFile = e.target.files[0];
