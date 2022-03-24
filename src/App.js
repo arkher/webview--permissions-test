@@ -1,27 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
-import { useCallback, useState } from 'react';
+import logo from "./logo.svg";
+import "./App.css";
+import { useCallback, useEffect, useState } from "react";
+import { UploadDocument } from "./components/Upload/Upload";
 
 function App() {
-  const [permissions, setPermissions] = useState('');
-  const getPermissions = async () => {
-    const cameraPermission = await navigator.permissions.query({name: 'geolocation'});
-    return cameraPermission;
-  }
-  const executeQuery = useCallback(() => {
-    getPermissions().then(value => {
-      // alert(value.name + ' ' + value.state)
-      setPermissions(value.name + ' ' + value.state)
-    }).catch(err => console.error(err))
-  }, [])
-  executeQuery()
+  const [permissions, setPermissions] = useState(undefined);
+
+  const getMedia = useCallback(async (constraints) => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia(constraints);
+      const perms = stream.getTracks().map((item) => item.kind);
+      // const storage = await navigator.storage.persisted();
+      setPermissions(perms);
+      console.log("perms", perms);
+      // console.log("storage", storage);
+    } catch (err) {
+      console.error(err);
+    }
+  }, []);
+
+  useEffect(() => {
+    getMedia({ video: true });
+  }, [getMedia]);
+
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          {permissions}
-        </p>
+        {permissions?.map((item) => (
+          <p>{item}</p>
+        ))}
+
+        <UploadDocument
+          handleHash={(value) => {
+            console.log(value);
+          }}
+        />
+
         <a
           className="App-link"
           href="https://reactjs.org"
