@@ -26,7 +26,8 @@ const UploadDocument = (props) => {
     handleHash(``);
   };
 
-  const handleClick = () => {
+  const handleClick = async (e) => {
+    e.persist();
     if (!attached) hiddenFileInput.current?.click();
   };
 
