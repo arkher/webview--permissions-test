@@ -52,7 +52,7 @@ const UploadDocument = (props) => {
  };
 
   const handleChange = (e) => {
-    e.persist();
+    // e.persist();
     if (attached) return;
     if (!e.target.files?.length) return;
     const selectedFile = e.target.files[0];
